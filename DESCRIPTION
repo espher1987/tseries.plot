@@ -1,0 +1,13 @@
+Package: tseries.plot
+Type: Package
+Title: Time Series Plot
+Version: 0.1.0
+Author: Víctor Espinoza
+Maintainer: Víctor Espinoza <espher1987@hotmail.com>
+Description: Create ggplot2 plots for time series and print a table with descriptive analysis.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.4.2), dplyr (>= 0.7.4)
+Imports: ggplot2, forecast, gridExtra, mFilter
+RoxygenNote: 6.0.1
