@@ -35,7 +35,8 @@ tsp.trend.filter <- function(x,
     geom_line(aes(as.numeric(time(filter$x)),
                   as.numeric(filter$x),  lty = "serie")) +
     labs(x = "time", y = "value", lty = "type") +
-    scale_linetype_manual(values = c("trend" = 1, "serie" = 2))
+    scale_linetype_manual(values = c("trend" = 1,
+                                     "serie" = 2))
 
   plot.2 <- ggplot() +
     geom_line(aes(as.numeric(time(filter$cycle)),
