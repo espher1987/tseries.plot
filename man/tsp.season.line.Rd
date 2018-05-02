@@ -7,10 +7,10 @@
 tsp.season.line(x)
 }
 \arguments{
-\item{x}{time series to plot,
+\item{x}{time series, ts class object
 only ts class}
 }
 \description{
-Plot using ggplot2 a
-time series using year as group
+Line plot of time series using
+year as group
 }

@@ -1,7 +1,7 @@
 #' @title Season plot by line
-#' @description Plot using ggplot2 a
-#' time series using year as group
-#' @param x time series to plot,
+#' @description Line plot of time series using
+#' year as group
+#' @param x time series, ts class object
 #' only ts class
 #' @import ggplot2
 #' @export

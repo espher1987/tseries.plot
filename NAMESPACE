@@ -3,6 +3,7 @@
 S3method(autoplot,mFilter)
 export(tsp.correlogram)
 export(tsp.figures)
+export(tsp.range.mean)
 export(tsp.season.box)
 export(tsp.season.line)
 export(tsp.trend.decompose)

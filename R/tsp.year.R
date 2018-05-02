@@ -1,7 +1,7 @@
 #' @title time series plot by year
 #' @description Draw a boxplot of a time series, using year as grouping factor
 #' @param x
-#' a time series object (ts class)
+#' time series, ts class object
 #' @param table
 #' logical, if TRUE (default) print a table with year,
 #' median, mean, sd and variance values

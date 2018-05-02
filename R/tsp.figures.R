@@ -1,6 +1,6 @@
 #' @title time series figures plot
 #' @description Plot figures for a time series
-#' @param x ts object
+#' @param x time series, ts class object
 #' @param type type of decompose model.
 #' @param table logical. If TRUE (default), table is printed
 #' @details

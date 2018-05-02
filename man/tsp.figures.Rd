@@ -7,7 +7,7 @@
 tsp.figures(x = x, type = c("multiplicative", "additive"), table = T)
 }
 \arguments{
-\item{x}{ts object}
+\item{x}{time series, ts class object}
 
 \item{type}{type of decompose model.}
 

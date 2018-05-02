@@ -7,7 +7,7 @@
 tsp.year(x = x, table = TRUE)
 }
 \arguments{
-\item{x}{a time series object (ts class)}
+\item{x}{time series, ts class object}
 
 \item{table}{logical, if TRUE (default) print a table with year,
 median, mean, sd and variance values}
