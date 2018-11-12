@@ -1,13 +1,13 @@
 #' @title Range Mean Plot
 #' @description Plot a Range Mean Plot using ggplot2 package
 #' @param x ts class object
+#' @param table logical, if true (default) print mean and range values
 #' @seealso
 #' \code{\link[base]{mean}}
 #' \code{\link[base]{max}}
 #' \code{\link[base]{min}}
 #' @export
 #'
-
 tsp.range.mean <- function(x, table = T) {
   if(class(x)!="ts"){stop("only for ts class")}
   year <- trunc.Date(time(x))

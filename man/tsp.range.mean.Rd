@@ -8,6 +8,8 @@ tsp.range.mean(x, table = T)
 }
 \arguments{
 \item{x}{ts class object}
+
+\item{table}{logical, if true (default) print mean and range values}
 }
 \description{
 Plot a Range Mean Plot using ggplot2 package

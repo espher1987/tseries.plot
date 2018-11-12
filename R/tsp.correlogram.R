@@ -11,6 +11,8 @@
 #' or Arima residual and 2*frequency(m) for seasonal ts or Arima residual.
 #' @param table
 #' logical. if TRUE (default) a table is displayed
+#' @seasonal if TRUE (default) acf and pacf plot
+#' show seasonal lag color different from regular lag
 #' @details
 #' plot Acf, Pacf and portmanteau test for
 #' a time series object (ts class) or Arima residual
@@ -35,9 +37,10 @@
 tsp.correlogram <- function(x,
                             type = c("Ljung-Box","Box-Pierce"),
                             lag.max = NA,
-                            table = TRUE){
+                            table = TRUE,
+                            seasonal = FALSE){
 
-# logical test for object class
+  # logical test for object class
 
   if(!is.ts(x) & !is.Arima(x)){
     stop("Only for ts or Arima object class")}
@@ -46,7 +49,7 @@ tsp.correlogram <- function(x,
   type <- match.arg(arg = type,
                     choices = c("Ljung-Box","Box-Pierce"))
 
-# logical test for creation of objects
+  # logical test for creation of objects
 
   if(is.Arima(x)){
     fitdf <- length(x$coef)
@@ -64,7 +67,7 @@ tsp.correlogram <- function(x,
                       2*m)}
   if(lag.max > length(serie)){
     lag.max <- length(serie)/2
-    }
+  }
 
   # Acf Pacf table
 
@@ -98,19 +101,28 @@ tsp.correlogram <- function(x,
   # create a factor from p value to color in points
   color <- ifelse(p.value < 0.05, "p-value < 0.05", "p-value > 0.05")
 
-  # final table
+  # Only seasonal
+  if(!is.logical(seasonal)){stop("season must be logical")}
 
-  df.plot <- data.frame(lag,acf,pacf,q.stat,df,p.value,color)
+  if(seasonal == TRUE){
+  season <- 1:lag.max %in% seq(frequency(serie),lag.max,by=frequency(serie)) %>%
+    ifelse(yes = "black",no = "grey")}
+
+  if(seasonal == FALSE){
+    season <- rep(1,lag.max)}
+
+  # final table
+  df.plot <- data.frame(lag,acf,pacf,q.stat,df,p.value,color,season)
 
   if(table == T){print.data.frame(round(df.plot[1:6],digits = 5),row.names = F)}
 
- # x breaks
+  # x breaks
   ifelse(lag.max <= 10,
          breaks  <- 1:lag.max,
          breaks <- seq(from = lag.max/4,
-                        to = lag.max,
-                        length.out = 4)
-         )
+                       to = lag.max,
+                       length.out = 4)
+  )
 
   #limit for acf and pacf
   limit <- 1.96/sqrt(length(serie))
@@ -119,23 +131,26 @@ tsp.correlogram <- function(x,
   y.limit <- max(abs(df.plot[2:3]))
 
   if(limit > y.limit)
-    {y.limit <-  limit}
+  {y.limit <-  limit}
+
 
   # Acf plot
   plot.acf <- ggplot(data = df.plot) +
     geom_segment(aes(x    = lag,    y = rep(0,length(lag)),
-                               xend = lag, yend = acf)) +
+                     xend = lag, yend = acf),
+                 color = season) +
     geom_hline(yintercept = c(1,-1)*limit, color = "blue", lty = 2) +
     geom_hline(yintercept = 0) +
     scale_x_continuous(breaks = breaks,
                        limits = c(1,lag.max)) +
     scale_y_continuous(limits = c(-1,1)*y.limit) + labs(x = "",
-                                                y = "acf")
+                                                        y = "acf")
 
- # Pacf plot
+  # Pacf plot
   plot.pacf <- ggplot(df.plot) +
     geom_segment(aes(x    = lag,    y = rep(0,length(lag)),
-                     xend = lag, yend = pacf)) +
+                     xend = lag, yend = pacf),
+                 color = season) +
     geom_hline(yintercept = c(1,-1)*limit, color = "blue", lty = 2) +
     geom_hline(yintercept = 0) +
     scale_x_continuous(breaks = breaks,
