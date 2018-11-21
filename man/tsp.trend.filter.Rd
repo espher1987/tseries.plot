@@ -16,6 +16,8 @@ tsp.trend.filter(x, type = c("HP", "BK", "CF", "BW", "TR"),
 "CF" (Christiano-Fitzgerald),
 "BW" (Butterworth)
 and "TR" (trigonometric regression).}
+
+\item{table}{print table with basic statistic}
 }
 \description{
 Use the mfilter package to filter a

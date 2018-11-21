@@ -11,7 +11,7 @@
 #' or Arima residual and 2*frequency(m) for seasonal ts or Arima residual.
 #' @param table
 #' logical. if TRUE (default) a table is displayed
-#' @seasonal if TRUE (default) acf and pacf plot
+#' @param seasonal if TRUE (default) acf and pacf plot
 #' show seasonal lag color different from regular lag
 #' @details
 #' plot Acf, Pacf and portmanteau test for
@@ -32,6 +32,10 @@
 #' \code{\link[forecast]{Pacf}}
 #' \code{\link[forecast]{checkresiduals}}
 #' @import ggplot2 forecast gridExtra
+#' @importFrom forecast is.Arima Acf Pacf
+#' @importFrom stats Box.test is.ts frequency fitted na.omit
+#' @importFrom gridExtra grid.arrange
+#' @importFrom ggplot2 ggplot aes geom_point geom_hline geom_segment labs scale_x_continuous scale_y_continuous
 #' @export
 
 tsp.correlogram <- function(x,

@@ -8,6 +8,7 @@
 #' "CF" (Christiano-Fitzgerald),
 #' "BW" (Butterworth)
 #' and "TR" (trigonometric regression).
+#' @param table print table with basic statistic
 #' @author Victor Espinoza
 #' @seealso
 #' \code{\link[stats]{decompose}}

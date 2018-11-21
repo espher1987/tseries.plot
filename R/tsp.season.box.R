@@ -9,6 +9,8 @@
 #' @param table logical, if true(default) median, mean, sd and var
 #' values are printed, using season as group
 #' @import ggplot2
+#' @importFrom stats decompose na.omit cycle median sd var time
+#' @importFrom dplyr group_by summarize
 #' @export
 
 tsp.season.box <- function(x = x,

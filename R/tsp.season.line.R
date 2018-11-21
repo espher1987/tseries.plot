@@ -4,6 +4,7 @@
 #' @param x time series, ts class object
 #' only ts class
 #' @import ggplot2
+#' @importFrom stats time cycle median start end
 #' @export
 
 tsp.season.line <- function(x){

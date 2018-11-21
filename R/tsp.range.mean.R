@@ -7,6 +7,9 @@
 #' \code{\link[base]{max}}
 #' \code{\link[base]{min}}
 #' @export
+#' @import ggplot2
+#' @importFrom stats time
+#' @importFrom dplyr group_by summarise
 #'
 tsp.range.mean <- function(x, table = T) {
   if(class(x)!="ts"){stop("only for ts class")}

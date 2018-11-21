@@ -18,6 +18,9 @@ If lag.max is NA (default), lag.max = 10 for non seasonal ts
 or Arima residual and 2*frequency(m) for seasonal ts or Arima residual.}
 
 \item{table}{logical. if TRUE (default) a table is displayed}
+
+\item{seasonal}{if TRUE (default) acf and pacf plot
+show seasonal lag color different from regular lag}
 }
 \description{
 Plot Acf, Pacf and Portmanteau test for ts or arima class object
