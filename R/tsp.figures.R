@@ -25,10 +25,13 @@ tsp.figures <- function(x = x, type = c("multiplicative","additive"), table = T)
   d <- decompose(x =  x, type = type)
   figure <- d$figure
 
+  if(type == "multiplicative"){figure.plot <- figure - 1}
+  if(type == "additive"){figure.plot <- figure}
+
   lab.y <- ifelse(type == "multiplicative", "figures -1", "figures")
 
    plot <- ggplot() +
-    geom_col(mapping = aes( x = 1:length(figure), y = figure - 1)) +
+    geom_col(mapping = aes( x = 1:length(figure), y = figure.plot)) +
     labs(x = "season", y = lab.y, caption = paste(d$type,"model")) +
     scale_x_continuous(breaks = 1:length(d$figure))
 

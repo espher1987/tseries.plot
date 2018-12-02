@@ -14,13 +14,13 @@
 #' @export
 
 tsp.season.box <- function(x = x,
-                           type  = c("multiplicative","additive","none"),
+                           type  = c("none","multiplicative","additive"),
                            table = TRUE)
 {
 if(class(x)!="ts"){stop("Only for ts class")}
 
 type <- match.arg(arg     = type,
-                  choices = c("multiplicative","additive","none"))
+                  choices = c("none","multiplicative","additive"))
 
 if(type == "none"){
   x <- x
