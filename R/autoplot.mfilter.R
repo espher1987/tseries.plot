@@ -5,7 +5,7 @@
 #' @import ggplot2 gridExtra mFilter
 #' @export
 
-autoplot.mFilter <- function(x)
+tsp.mfilter <- function(x)
 {
 filter <- x
 
