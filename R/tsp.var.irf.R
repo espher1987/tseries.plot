@@ -33,7 +33,7 @@ tsp.var.irf <- function(x){
     impulse <- rep(paste("impulse:",names(irf$irf[i])),nlag+1)
     df.mean[[i]]  <-   irf$irf[[i]] %>%
       as_tibble() %>%
-      mutate(impulse = paste("impulse:",impulse),
+      mutate(impulse = impulse,
              lag = 0:nlag) %>%
       gather("response",
              value = "value",
@@ -41,11 +41,13 @@ tsp.var.irf <- function(x){
              -lag)
   }
 
+
+if(irf$boot == T){
   for (i in 1:nimp) {
     impulse <- rep(paste("impulse:",names(irf$irf[i])),nlag+1)
     df.lower[[i]]  <-   irf$Lower[[i]] %>%
       as_tibble() %>%
-      mutate(impulse = paste("impulse:",impulse),
+      mutate(impulse = impulse,
              lag = 0:nlag) %>%
       gather("response",
              value = "value",
@@ -57,7 +59,7 @@ tsp.var.irf <- function(x){
     impulse <- rep(paste("impulse:",names(irf$irf[i])),nlag+1)
     df.upper[[i]]  <-   irf$Upper[[i]] %>%
       as_tibble() %>%
-      mutate(impulse = paste("impulse:",impulse),
+      mutate(impulse = impulse,
              lag = 0:nlag) %>%
       gather("response",
              value = "value",
@@ -79,5 +81,20 @@ tsp.var.irf <- function(x){
     labs(x = "lag", y = "response") +
     facet_grid(rows = vars(response),cols = vars(impulse)) +
     scale_x_continuous(breaks = 0:nlag)
+}
+
+if(irf$boot == F){
+  df.mean  <- bind_rows(df.mean)
+
+  plot <-  ggplot(df.mean) +
+    geom_line(mapping = aes(lag,value)) +
+    geom_hline(yintercept = 0, color = "red", lty = 2) +
+    labs(x = "lag", y = "response") +
+    facet_grid(rows = vars(response),cols = vars(impulse)) +
+    scale_x_continuous(breaks = 0:nlag)
+
+}
+
   print(plot)
+
 }

@@ -4,7 +4,7 @@
 \alias{tsp.season.box}
 \title{Season plot using boxplot}
 \usage{
-tsp.season.box(x = x, type = c("multiplicative", "additive", "none"),
+tsp.season.box(x = x, type = c("none", "multiplicative", "additive"),
   table = TRUE)
 }
 \arguments{
