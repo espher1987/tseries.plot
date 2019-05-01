@@ -23,7 +23,12 @@ tsp.figures <- function(x = x, type = c("multiplicative","additive"), table = T)
                     choices = c("multiplicative","additive"))
 
   d <- decompose(x =  x, type = type)
-  figure <- d$figure
+
+  if(start(x)[2]!=1){
+  figure <- d$seasonal[{frequency(x)-start(x)[2]+2}:{frequency(x)-start(x)[2]+1+frequency(x)}]}
+
+  if(start(x)[2]==1){
+  figure <- d$figure}
 
   if(type == "multiplicative"){figure.plot <- figure - 1}
   if(type == "additive"){figure.plot <- figure}
