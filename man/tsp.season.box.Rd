@@ -4,8 +4,11 @@
 \alias{tsp.season.box}
 \title{Season plot using boxplot}
 \usage{
-tsp.season.box(x = x, type = c("none", "multiplicative", "additive"),
-  table = TRUE)
+tsp.season.box(
+  x = x,
+  type = c("none", "multiplicative", "additive"),
+  table = TRUE
+)
 }
 \arguments{
 \item{x}{time series object of class "ts"}

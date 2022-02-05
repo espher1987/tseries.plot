@@ -1,9 +1,8 @@
 #' Toda and Yamamoto Causality Test
 #'
-#' @param data object of class mts created with ts()
+#' @param data object of class matrix as zoo or mts
 #' @param p lag order for VAR, use vars::VARselect()
 #' @param d max integration order I(d), use Unit Root test to determinate
-#' @param print_model Logical, print VAR model used for test
 #' @param ... extra parameters used in vars::VAR()
 #'
 #' @return list object with VAR and Toda-Yamamoto causality test
@@ -13,15 +12,24 @@
 #' library(tseries.plot)
 #' library(vars)
 #' data("Canada")
-#' tsp.toda_yamamoto(Canada,1,1)
+#' tsp.toda_yamamoto(Canada,1,1,type="both")
 
-tsp.toda_yamamoto <- function(data,p=1,d=1,print_model = FALSE,...){
+tsp.toda_yamamoto <- function(data,p=1,d=1,...){
+
+  if(prod(as.numeric(sapply(data,is.numeric)))==0){
+    stop("Only numeric variables on matrix")
+  }
+
+  if(prod(complete.cases(data))==0){
+    stop("NA values in data")
+  }
+
+  if (length(colnames(data))==0) {
+    stop("Only named columns matrix supported")
+  }
+
   result <- vector(length = 0L)
   model <- vars::VAR(y = data,p = {p+d},...)
-
-  if (print_model == TRUE) {
-    print(model)
-  }
 
   for (i in 1:ncol(data)) {
 

@@ -15,3 +15,9 @@ tibble class data with causality test for each pair
 \description{
 Perform Granger causality block test based on Wald Chi-Squared
 }
+\examples{
+library(tseries.plot)
+library(vars)
+data("Canada")
+tsp.granger(VAR(Canada,2))
+}

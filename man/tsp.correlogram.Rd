@@ -4,8 +4,13 @@
 \alias{tsp.correlogram}
 \title{correlogram plot from a time series}
 \usage{
-tsp.correlogram(x, type = c("Ljung-Box", "Box-Pierce"), lag.max = NA,
-  table = TRUE, seasonal = FALSE)
+tsp.correlogram(
+  x,
+  type = c("Ljung-Box", "Box-Pierce"),
+  lag.max = NA,
+  table = TRUE,
+  seasonal = FALSE
+)
 }
 \arguments{
 \item{x}{ts or Arima object}

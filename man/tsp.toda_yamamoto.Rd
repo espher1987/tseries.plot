@@ -4,16 +4,14 @@
 \alias{tsp.toda_yamamoto}
 \title{Toda and Yamamoto Causality Test}
 \usage{
-tsp.toda_yamamoto(data, p = 1, d = 1, print_model = FALSE, ...)
+tsp.toda_yamamoto(data, p = 1, d = 1, ...)
 }
 \arguments{
-\item{data}{object of class mts created with ts()}
+\item{data}{object of class matrix as zoo or mts}
 
 \item{p}{lag order for VAR, use vars::VARselect()}
 
 \item{d}{max integration order I(d), use Unit Root test to determinate}
-
-\item{print_model}{Logical, print VAR model used for test}
 
 \item{...}{extra parameters used in vars::VAR()}
 }
@@ -27,5 +25,5 @@ Toda and Yamamoto Causality Test
 library(tseries.plot)
 library(vars)
 data("Canada")
-tsp.toda_yamamoto(Canada,1,1)
+tsp.toda_yamamoto(Canada,1,1,type="both")
 }

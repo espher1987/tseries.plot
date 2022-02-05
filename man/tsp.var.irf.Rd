@@ -4,13 +4,13 @@
 \alias{tsp.var.irf}
 \title{Irf VAR plot}
 \usage{
-tsp.var.irf(x)
+tsp.var.irf(irf)
 }
 \arguments{
-\item{x}{irf class object created by vars::irf() function}
+\item{irf}{irf class object created by vars::irf() function}
 }
 \value{
-A ggplot2 object class
+A ggplot2 object class with irf from vars::irf()
 }
 \description{
 Irf VAR plot

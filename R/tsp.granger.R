@@ -6,7 +6,16 @@
 #' @export
 #'
 #' @examples
+#' library(tseries.plot)
+#' library(vars)
+#' data("Canada")
+#' tsp.granger(VAR(Canada,2))
 tsp.granger  <- function(model){
+  if (class(model) %in% "varest") {
+  } else{
+    stop("Only 'varest' class object from vars::VAR()")
+  }
+
   result <- vector(mode = "list",length = 0L)
   for (i in 1:ncol(model$y)) {
     caused <- colnames(model$y)[i]

@@ -4,8 +4,7 @@
 \alias{tsp.trend.filter}
 \title{Trend filter Plot}
 \usage{
-tsp.trend.filter(x, type = c("HP", "BK", "CF", "BW", "TR"),
-  table = TRUE)
+tsp.trend.filter(x, type = c("HP", "BK", "CF", "BW", "TR"), table = TRUE)
 }
 \arguments{
 \item{x}{time series object of class "ts"}
