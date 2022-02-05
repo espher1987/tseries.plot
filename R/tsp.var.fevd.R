@@ -11,9 +11,9 @@
 #' @examples
 #'
 
-tsp.var.fevd <- function(x){
-  if(class(x) != "varfevd"){stop("only varfevd object supported")}
-  fevd <- x
+tsp.var.fevd <- function(fevd){
+  if(class(fevd) != "varfevd"){stop("only varfevd object supported")}
+
 # to avoid --as-cran check problem
   name      <- NULL
   lag       <- NULL
