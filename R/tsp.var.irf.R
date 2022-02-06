@@ -19,33 +19,33 @@ tsp.var.irf <- function(irf){
   fortify <- function(data){
     result <- vector(mode = "list",length = 0L)
     for (d in 1:length(data)) {
-      result[[length(result)+1]]<- tibble(imp = names(data)[d],
+      result[[length(result)+1]]<- tibble::tibble(imp = names(data)[d],
                                           lag = 0:{nrow(data[[d]])-1},
-                                          as_tibble(data[[d]]))
+                                          tibble::as_tibble(data[[d]]))
     }
-    data <- unnest(tibble(result),cols = result)
+    data <- dplyr::unnest(tibble::tibble(result),cols = result)
     return(data)}
 
   data_irf <- fortify(irf$irf)
   data_lower <- fortify(irf$Lower)
   data_upper <- fortify(irf$Upper)
   suppressMessages(
-  plot_data <- add_column(data_irf,type = "mean") %>%
-    full_join(add_column(data_lower,type = "lower")) %>%
-    full_join(add_column(data_upper,type = "upper")) %>%
-    pivot_longer(cols = -c(imp,lag,type)) %>%
-    mutate(imp = paste(imp,"(imp.)"),
+  plot_data <- tibble::add_column(data_irf,type = "mean") %>%
+    dplyr::full_join(tibble::add_column(data_lower,type = "lower")) %>%
+    dplyr::full_join(tibble::add_column(data_upper,type = "upper")) %>%
+    dplyr::pivot_longer(cols = -c(imp,lag,type)) %>%
+    dplyr::mutate(imp = paste(imp,"(imp.)"),
            name = paste(name,"(res.)")))
 
-  plot <- ggplot(plot_data) +
-    geom_line(aes(x = lag,value,
+  plot <- ggplot2::ggplot(plot_data) +
+    ggplot2::geom_line(aes(x = lag,value,
                   lty = type),show.legend = F) +
-    facet_grid(cols = vars(imp),
+    ggplot2::facet_grid(cols = vars(imp),
                rows = vars(name)) +
-    scale_linetype_manual(values = c("lower"=2,
+    ggplot2::scale_linetype_manual(values = c("lower"=2,
                                      "upper"=2,
                                      "mean"=1)) +
-    geom_hline(yintercept = 0,lty = 3) +
-    scale_x_continuous(labels = as.integer)
+    ggplot2::geom_hline(yintercept = 0,lty = 3) +
+    ggplot2::scale_x_continuous(labels = as.integer)
   return(plot)
   }
