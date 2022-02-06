@@ -4,7 +4,7 @@
 \alias{tsp.var.fevd}
 \title{FEVD plot on ggplot2}
 \usage{
-tsp.var.fevd(x)
+tsp.var.fevd(fevd)
 }
 \arguments{
 \item{x}{A fevd class object created by vars::fevd()}
