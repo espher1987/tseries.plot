@@ -38,10 +38,10 @@ tsp.var.irf <- function(irf){
            name = paste(name,"(res.)")))
 
   plot <- ggplot2::ggplot(plot_data) +
-    ggplot2::geom_line(aes(x = lag,value,
+    ggplot2::geom_line(ggplot2::aes(x = lag,value,
                   lty = type),show.legend = F) +
-    ggplot2::facet_grid(cols = vars(imp),
-               rows = vars(name)) +
+    ggplot2::facet_grid(cols = ggplot2::vars(imp),
+               rows = ggplot2::vars(name)) +
     ggplot2::scale_linetype_manual(values = c("lower"=2,
                                      "upper"=2,
                                      "mean"=1)) +
