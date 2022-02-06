@@ -13,23 +13,24 @@ tsp.var.fit <- function(model){
   }
 
   plot_list <- vector(mode = "list",length = 0L)
-
+  lag <- model$p
   for (i in 1:length(model$varresult)) {
     test <- model$varresult[[i]]
       t <- time(model$y[,i])
       l <- length(t)
-      f <- fitted(test)
-      o <- test$model$y
-      t <- t[{lag+1}:l]
-      data <- data.frame(t,f,o)
+      fitted <- fitted(test)
+      observed <- test$model$y
+      time <- t[{lag+1}:l]
 
-plot_list[[length(plot_list)+1]]  <- ggplot2::ggplot(data,ggplot2::aes(x = t))+
-    ggplot2::geom_line(ggplot2::aes(y = f, color = "fitted"))+
-    ggplot2::geom_line(ggplot2::aes(y = o, color = "observed")) +
+      data <- data.frame(time,fitted,observed)
+
+plot_list[[length(plot_list)+1]]  <- ggplot2::ggplot(data,ggplot2::aes(x = time))+
+    ggplot2::geom_line(ggplot2::aes(y = fitted, color = "fitted"))+
+    ggplot2::geom_line(ggplot2::aes(y = observed, color = "observed")) +
     ggplot2::labs(color = "Type",
                   x = "time",
                   y = "value")}
-  plot_final <- gridExtra::grid.arrange(grobs = plot_list,
-                          ncol = 2)
-  return(plot_final)
+  return(suppressMessages(
+    gridExtra::grid.arrange(grobs = plot_list,
+                          ncol = 2)))
   }
