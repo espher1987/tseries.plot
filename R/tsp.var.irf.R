@@ -23,7 +23,7 @@ tsp.var.irf <- function(irf){
                                           lag = 0:{nrow(data[[d]])-1},
                                           tibble::as_tibble(data[[d]]))
     }
-    data <- dplyr::unnest(tibble::tibble(result),cols = result)
+    data <- tidyr::unnest(tibble::tibble(result),cols = result)
     return(data)}
 
   data_irf <- fortify(irf$irf)
