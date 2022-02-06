@@ -6,7 +6,12 @@
 #' @export
 #'
 #' @examples
-tsp.var.fit <- function(model){
+#' library(tseries.plot)
+#' library(vars)
+#' data("Canada")
+#' model <- VAR(Canada,3)
+#' tsp.var.fit(model)
+#' tsp.var.fit <- function(model){
 
   if(class(model)!="varest"){
     stop("Only 'varest' class object supported")

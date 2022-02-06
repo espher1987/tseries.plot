@@ -6,6 +6,12 @@
 #' @export
 #'
 #' @examples
+#' library(tseries.plot)
+#' library(vars)
+#' data("Canada")
+#' model <- VAR(Canada,3)
+#' tsp.var.resid(model)
+
 tsp.var.resid <- function(model){
 
   if(class(model)!="varest"){
