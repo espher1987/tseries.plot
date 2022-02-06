@@ -33,7 +33,7 @@ tsp.var.irf <- function(irf){
   plot_data <- tibble::add_column(data_irf,type = "mean") %>%
     dplyr::full_join(tibble::add_column(data_lower,type = "lower")) %>%
     dplyr::full_join(tibble::add_column(data_upper,type = "upper")) %>%
-    dplyr::pivot_longer(cols = -c(imp,lag,type)) %>%
+    tidyr::pivot_longer(cols = -c(imp,lag,type)) %>%
     dplyr::mutate(imp = paste(imp,"(imp.)"),
            name = paste(name,"(res.)")))
 
