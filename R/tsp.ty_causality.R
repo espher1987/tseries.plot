@@ -1,8 +1,10 @@
 #' Toda and Yamamoto Causality Test
 #'
-#' @param data object of class matrix as zoo or mts
-#' @param p lag order for VAR, use vars::VARselect()
-#' @param d max integration order I(d), use Unit Root test to determinate
+#' @param data object of class mts created with ts()
+#' @param p lag order for VAR, use vars::VARselect(), if NULL (default) automatic value is calculated
+#' @param d max integration order I(d), if NULL (default) automatic value is calculated
+#' @param criteria information criteria for automatic p order, used in vars::VARselect()
+#' @param test Type of unit root test to use for automatic d value, used in forecast::ndiffs()
 #' @param ... extra parameters used in vars::VAR()
 #'
 #' @return list object with VAR and Toda-Yamamoto causality test
@@ -13,8 +15,7 @@
 #' library(vars)
 #' data("Canada")
 #' tsp.toda_yamamoto(Canada,1,1,type="both")
-
-tsp.toda_yamamoto <- function(data,p=1,d=1,...){
+tsp.toda_yamamoto <- function(data,p=NULL,d=NULL,criteria = c("aic","hq","sc","fpe"),test = c("adf","kpss","pp"),...){
 
   if(prod(as.numeric(sapply(data,is.numeric)))==0){
     stop("Only numeric variables on matrix")
@@ -26,6 +27,28 @@ tsp.toda_yamamoto <- function(data,p=1,d=1,...){
 
   if (length(colnames(data))==0) {
     stop("Only named columns matrix supported")
+  }
+
+  if(!is.null(d)){
+    warning("manual selection for d")
+  }
+
+  if(!is.null(p)){
+    warning("manual selection for p")
+  }
+
+  if(is.null(d)){
+    test <- match.arg(test,c("adf","kpss","pp"))
+    d <- max(sapply(data, function(x){forecast::ndiffs(x,test = test)}))
+    print(paste("Automatic selection for 'd' using",test,"test:d_max=",d))
+  }
+
+  if(is.null(p)){
+    ic <- match.arg(stringr::str_to_upper(criteria),c("AIC","HQ","SC","FPE"))
+    ic <- paste(ic,"(n)",sep = "")
+
+    p <- getElement(vars::VARselect(Canada),"selection")[ic]
+    print(paste("Automatic selection for 'p' using",ic,"criteria:p=",p))
   }
 
   result <- vector(length = 0L)
@@ -54,8 +77,8 @@ tsp.toda_yamamoto <- function(data,p=1,d=1,...){
       Terms <- index[test_1 & test_2 & test_3]
 
       t <- aod::wald.test(Sigma = vcov(test),
-                     b = coef(test),
-                     Terms = Terms)
+                          b = coef(test),
+                          Terms = Terms)
 
       result[length(result)+1]<- list(data.frame(caused = caused,
                                                  sign = "<-",

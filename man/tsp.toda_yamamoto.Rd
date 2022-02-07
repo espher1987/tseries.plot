@@ -4,14 +4,25 @@
 \alias{tsp.toda_yamamoto}
 \title{Toda and Yamamoto Causality Test}
 \usage{
-tsp.toda_yamamoto(data, p = 1, d = 1, ...)
+tsp.toda_yamamoto(
+  data,
+  p = NULL,
+  d = NULL,
+  criteria = c("aic", "hq", "sc", "fpe"),
+  test = c("adf", "kpss", "pp"),
+  ...
+)
 }
 \arguments{
-\item{data}{object of class matrix as zoo or mts}
+\item{data}{object of class mts created with ts()}
 
-\item{p}{lag order for VAR, use vars::VARselect()}
+\item{p}{lag order for VAR, use vars::VARselect(), if NULL (default) automatic value is calculated}
 
-\item{d}{max integration order I(d), use Unit Root test to determinate}
+\item{d}{max integration order I(d), if NULL (default) automatic value is calculated}
+
+\item{criteria}{information criteria for automatic p order, used in vars::VARselect()}
+
+\item{test}{Type of unit root test to use for automatic d value, used in forecast::ndiffs()}
 
 \item{...}{extra parameters used in vars::VAR()}
 }
