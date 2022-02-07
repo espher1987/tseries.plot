@@ -15,3 +15,10 @@ grobs object from gridExtra::grid.arrange()
 \description{
 Fitted and observed values from VAR model
 }
+\examples{
+library(tseries.plot)
+library(vars)
+data("Canada")
+model <- VAR(Canada,3)
+tsp.var.fit(model)
+}

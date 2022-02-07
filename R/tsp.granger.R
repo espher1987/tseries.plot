@@ -29,7 +29,7 @@ tsp.granger  <- function(model){
       index <- 1:length(coef(test))
       Terms <- index[criteria]
       t <- aod::wald.test(Sigma = vcov(test),b = coef(test),Terms = Terms)
-      result[[length(result)+1]] <- tibble(caused = caused,
+      result[[length(result)+1]] <- tibble::tibble(caused = caused,
                                            sign = "<-",
                                            cause = variable,
                                            Chisq = t$result$chi2[[1]],

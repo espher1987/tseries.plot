@@ -28,41 +28,41 @@ library(tseries.plot)
 plot(AirPassengers)
 ```
 
-![](https://i.imgur.com/p7FYAvk.png)
+![](https://i.imgur.com/lQ20sKU.png)
 
 ``` r
 # Dentro de los primeros análisis a realizar en una serie de tiempo se encuentra el análisis de los componente de la serie de tiempo:
 tsp.trend.decompose(AirPassengers)
 ```
 
-![](https://i.imgur.com/Obdn10j.png)
+![](https://i.imgur.com/69NzXYN.png)
 
 ``` r
 # Análisis del componente estacional
 tsp.figures(AirPassengers,table = F)
 ```
 
-![](https://i.imgur.com/bF95KIG.png)
+![](https://i.imgur.com/spp1Yhj.png)
 
 ``` r
 tsp.season.box(AirPassengers,table = F)
 ```
 
-![](https://i.imgur.com/1HcJiDa.png)
+![](https://i.imgur.com/8c5PC55.png)
 
 ``` r
 # Además es útil el análisis de la varianza de la serie
 tsp.year(AirPassengers,table=F)
 ```
 
-![](https://i.imgur.com/n9RTMP2.png)
+![](https://i.imgur.com/bidNP5S.png)
 
 ``` r
 tsp.range.mean(AirPassengers,table = F)
 #> `geom_smooth()` using formula 'y ~ x'
 ```
 
-![](https://i.imgur.com/QPGsKp9.png)
+![](https://i.imgur.com/fICaUM0.png)
 
 ``` r
 # Con la ayuda del paquete mFilter
@@ -71,11 +71,10 @@ library(mFilter)
 tsp.mfilter(mFilter(AirPassengers))
 ```
 
-![](https://i.imgur.com/PKgq4YK.png)
+![](https://i.imgur.com/Emo2MmW.png)
 
 ``` r
-# Aunque estas son las principales funciones del paquete tambien existen algunas funciones adicionales aplicados al marco de Vectores Autorregresivos (VAR)
-# Utilizando el paquete vars
+# Dentro del marco de modelos VAR
 library(vars)
 #> Loading required package: MASS
 #> Loading required package: strucchange
@@ -92,20 +91,33 @@ library(vars)
 data("Canada")
 model<- VAR(Canada,3)
 
+# Podemos desarrollar las gráficas del modelo
+tsp.var.fit(model)
+```
+
+![](https://i.imgur.com/WHY70yc.png)
+
+``` r
+tsp.var.resid(model)
+```
+
+![](https://i.imgur.com/HHyNtUv.png)
+
+``` r
+
 model_irf <- irf(model)
 tsp.var.irf(model_irf)
 ```
 
-![](https://i.imgur.com/UMPbAS4.png)
+![](https://i.imgur.com/P9TkSua.png)
 
 ``` r
-
 
 model_fevd <- fevd(model)
 tsp.var.fevd(model_fevd)
 ```
 
-![](https://i.imgur.com/l8YRr1v.png)
+![](https://i.imgur.com/pm4Jhyx.png)
 
 ``` r
 # Causalidad en el modelo
@@ -128,6 +140,11 @@ ty$result
 #> 10 U      <-    e     26.0      3 0.00000944 e.l1=0,e.l2=0,e.l3=0         
 #> 11 U      <-    prod   5.20     3 0.158      prod.l1=0,prod.l2=0,prod.l3=0
 #> 12 U      <-    rw     2.68     3 0.444      rw.l1=0,rw.l2=0,rw.l3=0
+
+# Además de graficar
+tsp.var.forecast(model)
 ```
+
+![](https://i.imgur.com/9s9ghtM.png)
 
 <sup>Created on 2022-02-06 by the [reprex package](https://reprex.tidyverse.org) (v1.0.0)</sup>
