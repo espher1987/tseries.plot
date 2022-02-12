@@ -315,7 +315,6 @@ tsp.year(x)
 
 ![](https://i.imgur.com/AkEkSHp.png)
 
-```
 ### Also using mfilter package
 
 ``` r
@@ -324,8 +323,6 @@ tsp.mfilter(hpfilter(x))
 ```
 
 ![](https://i.imgur.com/Fld1sqN.png)
-
-```
 
 ## Using forecast package
 
@@ -361,7 +358,6 @@ tsp.correlogram(auto.arima(AirPassengers))
 
 ![](https://i.imgur.com/2Mh91dt.png)
 
-```
 
 ## Using Strucchange package
 
@@ -390,8 +386,6 @@ tsp.break(breakpoints(x~1))
 ```
 
 ![](https://i.imgur.com/aeD0A37.png)
-
-```
 
 ## Using vars package
 
@@ -431,7 +425,7 @@ tsp.var.fevd(fevd(model))
 
 ![](https://i.imgur.com/15IzOKQ.png)
 
-```
+## Causality Test
 tseries.plot include Toda and Yamamoto causality test for non-stationary time series in VAR model
 
 ``` r
