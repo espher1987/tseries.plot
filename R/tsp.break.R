@@ -52,19 +52,23 @@ df <- data.frame(time = time(fitted(model)),
 
 df <- tidyr::pivot_longer(df,-time)
 
-ggplot2::ggplot()+
+plot <- ggplot2::ggplot()+
   ggplot2::geom_segment(ggplot2::aes(x = brk$ld,xend = brk$hd,
-                   y = c(min(df$o)),
-                   yend=c(min(df$o)),
-                   color = brk$ci),size = 4)+
-  ggplot2::geom_segment(ggplot2::aes(x = brk$ld,xend = brk$hd,
-                   y = c(max(df$o)),
-                   yend=c(max(df$o)),
-                   color = brk$ci),size = 4)+
-  ggplot2::geom_line(data = df,aes(x=time,y=value,linetype=name)) +
-  ggplot2::geom_vline(xintercept = breakdates(model),
+                                     y = c(min(df$value)),
+                                     yend=c(min(df$value)),
+                                     color = brk$ci),size = 4)+
+  ggplot2::geom_segment(ggplot2::aes(x = brk$ld,
+                                     xend = brk$hd,
+                                     y = c(max(df$value)),
+                                     yend=c(max(df$value)),
+                                     color = brk$ci),size = 3)+
+  ggplot2::geom_line(data = df,ggplot2::aes(x=time,
+                                            y=value,
+                                            linetype=name)) +
+  ggplot2::geom_vline(xintercept = strucchange::breakdates(model),
              linetype = 3) +
   ggplot2::labs(x= "time",y = "value",color = "level",linetype = "type") +
   ggplot2::scale_linetype_manual(values = c("fitted"=2,
                                    "observed"=1))
+return(plot)
 }
