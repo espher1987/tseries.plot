@@ -14,6 +14,7 @@ Imports:
   broom,
   dplyr,
   forecast,
+  furrr,
   ggplot2,
   gridExtra,
   mFilter,

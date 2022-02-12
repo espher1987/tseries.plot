@@ -4,10 +4,12 @@
 \alias{tsp.var.fevd}
 \title{FEVD plot on ggplot2}
 \usage{
-tsp.var.fevd(fevd)
+tsp.var.fevd(fevd, type = c("area", "col"))
 }
 \arguments{
-\item{x}{A fevd class object created by vars::fevd()}
+\item{fevd}{A fevd class object created by vars::fevd()}
+
+\item{type}{Geom type to use}
 }
 \value{
 a ggplot2 object class

@@ -1,6 +1,7 @@
 #' FEVD plot on ggplot2
 #'
-#' @param x A fevd class object created by vars::fevd()
+#' @param fevd A fevd class object created by vars::fevd()
+#' @param type Geom type to use
 #'
 #' @return a ggplot2 object class
 #' @importFrom tidyr gather
@@ -11,32 +12,17 @@
 #' @examples
 #'
 
-tsp.var.fevd <- function(fevd){
+tsp.var.fevd <- function(fevd,type = c("area","col")){
   if(class(fevd) != "varfevd"){stop("only varfevd object supported")}
+  type <- match.arg(type,c("area","col"))
 
-# to avoid --as-cran check problem
-  name      <- NULL
-  lag       <- NULL
-  value     <- NULL
-  variable  <- NULL
-
-nvars <- length(fevd)
-nlag <- length(fevd[[1]][,1])
-df.plot <- list()
-
-for (i in 1:nvars) {
-  variable <- rep(names(fevd[i]),nlag)
-df.plot[[i]]  <- fevd[[i]] %>%
-    as_tibble %>%
-    mutate(name = paste("FEVD for",variable),
-           lag = 1:nlag)
+  plot <- purrr::map_df(fevd,.f = ~as.data.frame(.x),.id = "variable") %>%
+    dplyr::group_by(variable) %>%
+    dplyr::mutate(lag = seq_along(variable)) %>%
+    tidyr::pivot_longer(-c(variable,lag)) %>%
+    ggplot2::ggplot(ggplot2::aes(lag,value,fill = name)) +
+    ggplot2::facet_grid(rows = ggplot2::vars(variable))+
+    {if(type=="area"){ggplot2::geom_area()}else{ggplot2::geom_col()}} +
+    ggplot2::scale_x_continuous(n.breaks = length(fevd[[1]][,1]))
+  return(plot)
 }
-
-df.plot <- bind_rows(df.plot)
-df.plot <-df.plot %>%
-  gather(key = "variable",value = "value",-name,-lag)
-
-ggplot(df.plot) + geom_area(aes(factor(lag),value,
-                                group = variable, fill = variable)) +
-  labs(x = "lag") +
-  facet_grid(rows = vars(name))}

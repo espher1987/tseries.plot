@@ -4,10 +4,12 @@
 \alias{tsp.var.irf}
 \title{Irf VAR plot}
 \usage{
-tsp.var.irf(irf)
+tsp.var.irf(irf, color = NULL)
 }
 \arguments{
 \item{irf}{irf class object created by vars::irf() function}
+
+\item{color}{color fill for ggplot2::geom_ribbon()}
 }
 \value{
 A ggplot2 object class with irf from vars::irf()
