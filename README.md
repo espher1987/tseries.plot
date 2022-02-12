@@ -371,21 +371,9 @@ library(strucchange)
 #>     as.Date, as.Date.numeric
 #> Loading required package: sandwich
 tsp.break(breakpoints(x~1))
-#> Warning: Unknown or uninitialised column: `o`.
-#> Warning in min(df$o): ningún argumento finito para min; retornando Inf
-#> Warning: Unknown or uninitialised column: `o`.
-#> Warning in min(df$o): ningún argumento finito para min; retornando Inf
-#> Warning: Unknown or uninitialised column: `o`.
-#> Warning in min(df$o): ningún argumento finito para min; retornando Inf
-#> Warning: Unknown or uninitialised column: `o`.
-#> Warning in max(df$o): ningun argumento finito para max; retornando -Inf
-#> Warning: Unknown or uninitialised column: `o`.
-#> Warning in max(df$o): ningun argumento finito para max; retornando -Inf
-#> Warning: Unknown or uninitialised column: `o`.
-#> Warning in max(df$o): ningun argumento finito para max; retornando -Inf
 ```
 
-![](https://i.imgur.com/aeD0A37.png)
+![](https://i.imgur.com/olNpgLf.png)
 
 ## Using vars package
 
