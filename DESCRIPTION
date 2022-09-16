@@ -17,6 +17,8 @@ Imports:
   furrr,
   ggplot2,
   gridExtra,
+  lmtest,
+  strucchange,
   mFilter,
   stringr,
   tibble,
