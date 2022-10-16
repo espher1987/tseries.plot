@@ -17,31 +17,31 @@ Víctor José Espinoza Hernández
 
 # Example
 
-## Univariate time series
-
 ``` r
 x <- UKDriverDeaths
-plot(x)
 library(tseries.plot)
 #> Loading required package: magrittr
 #> Registered S3 method overwritten by 'quantmod':
 #>   method            from
 #>   as.zoo.data.frame zoo
+plot(x)
 ```
 
-![](https://i.imgur.com/ivuZUgY.png)
+![](https://i.imgur.com/44aXpuC.png)
+
+# Time series analysis
 
 ``` r
 tsp.figures(x,table = F)
 ```
 
-![](https://i.imgur.com/iPvZjHy.png)
+![](https://i.imgur.com/wTuvHSp.png)
 
 ``` r
 tsp.range_mean(x)
 ```
 
-![](https://i.imgur.com/JdIVcGa.png)
+![](https://i.imgur.com/R57ag5N.png)
 
     #>    year     mean range
     #> 1  1969 1662.583   767
@@ -60,22 +60,35 @@ tsp.range_mean(x)
     #> 14 1982 1621.667   714
     #> 15 1983 1289.333   456
     #> 16 1984 1368.417   653
-    tsp.season.box(x,table = F)
+    tsp.season.line(x)
+    #> N : 192   start : 1969   end:  1984   frequency : 12
 
-![](https://i.imgur.com/nfzrxcZ.png)
+![](https://i.imgur.com/r94iO8Q.png)
 
 ``` r
-tsp.season.line(x)
-#> N : 192   start : 1969   end:  1984   frequency : 12
+tsp.season.box(x)
+#>    season median     mean       sd      var
+#> 1       1 1656.5 1697.938 236.8919 56117.80
+#> 2       2 1460.0 1497.938 226.8719 51470.86
+#> 3       3 1545.0 1548.500 170.4269 29045.33
+#> 4       4 1399.0 1435.312 187.0575 34990.50
+#> 5       5 1526.0 1572.625 215.5529 46463.05
+#> 6       6 1520.0 1516.875 220.1066 48446.92
+#> 7       7 1543.5 1592.500 237.0412 56188.53
+#> 8       8 1634.0 1607.375 223.1537 49797.58
+#> 9       9 1635.0 1660.188 176.0092 30979.23
+#> 10     10 1787.5 1799.562 194.4315 37803.60
+#> 11     11 2008.0 1999.125 223.9854 50169.45
+#> 12     12 2171.0 2115.750 280.0275 78415.40
 ```
 
-![](https://i.imgur.com/tMRiRx8.png)
+![](https://i.imgur.com/bW9eyjg.png)
 
 ``` r
 tsp.trend.decompose(x)
 ```
 
-![](https://i.imgur.com/vv1eRHs.png)
+![](https://i.imgur.com/uOWebRy.png)
 
 ``` r
 tsp.trend.filter(x)
@@ -290,7 +303,7 @@ tsp.trend.filter(x)
 #> Dec 1984 1763  1362  400.883
 ```
 
-![](https://i.imgur.com/wGN4n7r.png)
+![](https://i.imgur.com/1f1RLg4.png)
 
 ``` r
 tsp.year(x)
@@ -313,18 +326,29 @@ tsp.year(x)
 #> 16 1984 1290.5 1368.417 218.0494 47545.54
 ```
 
-![](https://i.imgur.com/AkEkSHp.png)
+![](https://i.imgur.com/8ePXWpp.png)
 
-### Also using mfilter package
+``` r
+
+# Factor variable plot with time series
+
+tsp.series_factor(AirPassengers,
+                  factor(rbinom(length(AirPassengers),1,0.2)),
+                  color = F)
+```
+
+![](https://i.imgur.com/v5kb1JH.png)
+
+# Filtering time series data
 
 ``` r
 library(mFilter)
 tsp.mfilter(hpfilter(x))
 ```
 
-![](https://i.imgur.com/Fld1sqN.png)
+![](https://i.imgur.com/MPyKlzX.png)
 
-## Using forecast package
+# Arima diagnostic
 
 ``` r
 library(forecast)
@@ -356,10 +380,9 @@ tsp.correlogram(auto.arima(AirPassengers))
 #>   24  0.11113  0.08464 37.78405 21 0.01366
 ```
 
-![](https://i.imgur.com/2Mh91dt.png)
+![](https://i.imgur.com/kEpfx2y.png)
 
-
-## Using Strucchange package
+# Structural change in time series
 
 ``` r
 library(strucchange)
@@ -373,50 +396,93 @@ library(strucchange)
 tsp.break(breakpoints(x~1))
 ```
 
-![](https://i.imgur.com/olNpgLf.png)
-
-## Using vars package
+![](https://i.imgur.com/WTtTPXP.png)
 
 ``` r
+## Using vars package
 library(vars)
 #> Loading required package: MASS
 #> Loading required package: urca
 #> Loading required package: lmtest
 data("Canada")
+
+tsp.break.coef(Canada)
+```
+
+![](https://i.imgur.com/nmWnv3j.png)
+
+    #> # A tibble: 38 × 6
+    #> # Groups:   variable [4]
+    #>    variable term                          estimate std.error statistic  p.value
+    #>    <chr>    <chr>                            <dbl>     <dbl>     <dbl>    <dbl>
+    #>  1 e        1980(1) - 1982(4) (Intercept) 931.       1.04      896.    7.41e-26
+    #>  2 e        1980(1) - 1982(4) trend        -0.0383   0.141      -0.271 7.92e- 1
+    #>  3 e        1983(1) - 1989(3) (Intercept) 920.       0.262    3518.    1.04e-72
+    #>  4 e        1983(1) - 1989(3) trend         0.708    0.00964    73.4   1.00e-30
+    #>  5 e        1989(4) - 1992(3) (Intercept) 960.       1.55      618.    3.05e-24
+    #>  6 e        1989(4) - 1992(3) trend        -0.294    0.0341     -8.62  6.09e- 6
+    #>  7 e        1992(4) - 1996(2) (Intercept) 923.       1.43      643.    1.16e-30
+    #>  8 e        1992(4) - 1996(2) trend         0.427    0.0242     17.6   1.89e-10
+    #>  9 e        1996(3) - 2000(4) (Intercept) 906.       0.671    1351.    6.86e-42
+    #> 10 e        1996(3) - 2000(4) trend         0.669    0.00886    75.5   7.44e-22
+    #> # … with 28 more rows
+
+# VAR model framework
+
+```r
 model <- VAR(Canada)
 tsp.var.fit(model)
 ```
-
-![](https://i.imgur.com/HjERdsF.png)
+![](https://i.imgur.com/yfk7AI0.png)
 
 ``` r
 tsp.var.resid(model)
 ```
 
-![](https://i.imgur.com/1G6gwuT.png)
+![](https://i.imgur.com/OIZyZkA.png)
 
 ``` r
 tsp.var.forecast(model)
 ```
 
-![](https://i.imgur.com/KlKuLNp.png)
+![](https://i.imgur.com/j7AnxWd.png)
 
 ``` r
 tsp.var.irf(irf(model))
 ```
 
-![](https://i.imgur.com/9B8qG8k.png)
+![](https://i.imgur.com/CYUC72u.png)
 
 ``` r
 tsp.var.fevd(fevd(model))
 ```
 
-![](https://i.imgur.com/15IzOKQ.png)
+![](https://i.imgur.com/GaChYiJ.png)
 
-## Causality Test
-tseries.plot include Toda and Yamamoto causality test for non-stationary time series in VAR model
+# Causality Test
+
+## For stationary variables
 
 ``` r
+tsp.granger(VAR(Canada))
+#> # A tibble: 12 × 7
+#>    caused sign  cause  Chisq    df     p_value H0       
+#>    <chr>  <chr> <chr>  <dbl> <dbl>       <dbl> <chr>    
+#>  1 e      <-    prod  27.9       1 0.000000128 prod.l1=0
+#>  2 e      <-    rw     7.79      1 0.00525     rw.l1=0  
+#>  3 e      <-    U     10.0       1 0.00156     U.l1=0   
+#>  4 prod   <-    e      0.543     1 0.461       e.l1=0   
+#>  5 prod   <-    rw     0.414     1 0.520       rw.l1=0  
+#>  6 prod   <-    U      1.82      1 0.177       U.l1=0   
+#>  7 rw     <-    e      0.224     1 0.636       e.l1=0   
+#>  8 rw     <-    prod   9.03      1 0.00265     prod.l1=0
+#>  9 rw     <-    U      0.514     1 0.474       U.l1=0   
+#> 10 U      <-    e      9.91      1 0.00165     e.l1=0   
+#> 11 U      <-    prod  15.6       1 0.0000800   prod.l1=0
+#> 12 U      <-    rw    12.7       1 0.000372    rw.l1=0
+```
+## For non stationary variables
+```r
 tsp.toda_yamamoto(Canada)
 #> [1] "Automatic selection for 'd' using adf test:d_max= 1"
 #> [1] "Automatic selection for 'p' using AIC(n) criteria:p= 3"
@@ -483,7 +549,7 @@ tsp.toda_yamamoto(Canada)
 #> 
 #> 
 #> $result
-#> # A tibble: 12 x 7
+#> # A tibble: 12 × 7
 #>    caused sign  cause chisq    df          p H0                           
 #>    <chr>  <chr> <chr> <dbl> <dbl>      <dbl> <chr>                        
 #>  1 e      <-    prod  10.7      3 0.0137     prod.l1=0,prod.l2=0,prod.l3=0
@@ -500,4 +566,5 @@ tsp.toda_yamamoto(Canada)
 #> 12 U      <-    rw     2.68     3 0.444      rw.l1=0,rw.l2=0,rw.l3=0
 ```
 
-<sup>Created on 2022-02-11 by the [reprex package](https://reprex.tidyverse.org) (v1.0.0)</sup>
+<sup>Created on 2022-10-16 with [reprex v2.0.2](https://reprex.tidyverse.org)</sup>
+
