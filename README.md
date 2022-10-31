@@ -68,7 +68,7 @@ plot(x)
 lines(fitted(model))
 ```
 
-![](https://i.imgur.com/TxaAKeS.png)
+![](https://i.imgur.com/lrEuIN3.png)
 
 ``` r
 
@@ -81,7 +81,7 @@ lines(fitted(bk))
 lines(confint(bk))
 ```
 
-![](https://i.imgur.com/FsS1ZkY.png)
+![](https://i.imgur.com/LtaN8sC.png)
 
 ``` r
 coeftest(bk) %>% 
@@ -124,7 +124,7 @@ lines(fitted(bk_trend))
 lines(confint(bk_trend))
 ```
 
-![](https://i.imgur.com/eTC1t4h.png)
+![](https://i.imgur.com/CFvgCDU.png)
 
 ``` r
 coeftest(bk_trend)%>% 
@@ -147,13 +147,13 @@ coeftest(bk_trend)%>%
 tsp.figures(x,table = F)
 ```
 
-![](https://i.imgur.com/IEGIzUu.png)
+![](https://i.imgur.com/nOFnHT2.png)
 
 ``` r
 tsp.range_mean(x)
 ```
 
-![](https://i.imgur.com/oVVyzpj.png)
+![](https://i.imgur.com/UqjiGgW.png)
 
     #>    year    mean range
     #> 1  1960  0.6575  0.41
@@ -180,7 +180,7 @@ tsp.range_mean(x)
     tsp.season.line(x)
     #> N : 84   start : 1960   end:  1980   frequency : 4
 
-![](https://i.imgur.com/9z1a9AP.png)
+![](https://i.imgur.com/81rkpcf.png)
 
 ``` r
 tsp.season.box(x)
@@ -191,13 +191,13 @@ tsp.season.box(x)
 #> 4      4   3.60 4.188095 3.444917 11.86746
 ```
 
-![](https://i.imgur.com/ADyTZyR.png)
+![](https://i.imgur.com/2YGJfYH.png)
 
 ``` r
 tsp.trend.decompose(x)
 ```
 
-![](https://i.imgur.com/GbD3oBV.png)
+![](https://i.imgur.com/vJ8fRdh.png)
 
 ``` r
 tsp.trend.filter(x)
@@ -304,7 +304,7 @@ tsp.trend.filter(x)
 #> 1980 Q4 11.61 14.6184 -3.008e+00
 ```
 
-![](https://i.imgur.com/fTYlQLB.png)
+![](https://i.imgur.com/vjTJgC9.png)
 
 ``` r
 tsp.year(x)
@@ -332,7 +332,7 @@ tsp.year(x)
 #> 21 1980 15.345 14.6250 2.1228047 4.50630000
 ```
 
-![](https://i.imgur.com/ktcPmIE.png)
+![](https://i.imgur.com/xIlrWKQ.png)
 
 ``` r
 
@@ -343,7 +343,7 @@ tsp.series_factor(AirPassengers,
                   color = F)
 ```
 
-![](https://i.imgur.com/hiVGCj0.png)
+![](https://i.imgur.com/Tj8hiKc.png)
 
 ``` r
 
@@ -351,7 +351,7 @@ library(mFilter)
 tsp.mfilter(hpfilter(x))
 ```
 
-![](https://i.imgur.com/aAXuUuP.png)
+![](https://i.imgur.com/0fgoo9z.png)
 
 ``` r
 library(forecast)
@@ -383,7 +383,7 @@ tsp.correlogram(auto.arima(AirPassengers))
 #>   24  0.11113  0.08464 37.78405 21 0.01366
 ```
 
-![](https://i.imgur.com/QqVWgce.png)
+![](https://i.imgur.com/EH1zqq7.png)
 
 ``` r
 
@@ -393,7 +393,7 @@ library(strucchange)
 tsp.break(breakpoints(x~1))
 ```
 
-![](https://i.imgur.com/UZYxLTp.png)
+![](https://i.imgur.com/rFNdoJP.png)
 
 ``` r
 ## Using vars package
@@ -401,55 +401,84 @@ library(vars)
 #> Loading required package: MASS
 #> Loading required package: urca
 data("Canada")
-tsp.break.coef(Canada)
+tsp.break.coef(Canada) %>% 
+  kable(digits =2)
 ```
 
-![](https://i.imgur.com/rYOtxdv.png)
+![](https://i.imgur.com/0xpeMWz.png)
 
-    #> # A tibble: 38 × 8
-    #> # Groups:   variable [4]
-    #>    variable term        begin   end     estimate std.error statistic  p.value
-    #>    <chr>    <chr>       <chr>   <chr>      <dbl>     <dbl>     <dbl>    <dbl>
-    #>  1 e        (Intercept) 1980(1) 1982(4) 931.       1.04      896.    7.41e-26
-    #>  2 e        trend       1980(1) 1982(4)  -0.0383   0.141      -0.271 7.92e- 1
-    #>  3 e        (Intercept) 1983(1) 1989(3) 920.       0.262    3518.    1.04e-72
-    #>  4 e        trend       1983(1) 1989(3)   0.708    0.00964    73.4   1.00e-30
-    #>  5 e        (Intercept) 1989(4) 1992(3) 960.       1.55      618.    3.05e-24
-    #>  6 e        trend       1989(4) 1992(3)  -0.294    0.0341     -8.62  6.09e- 6
-    #>  7 e        (Intercept) 1992(4) 1996(2) 923.       1.43      643.    1.16e-30
-    #>  8 e        trend       1992(4) 1996(2)   0.427    0.0242     17.6   1.89e-10
-    #>  9 e        (Intercept) 1996(3) 2000(4) 906.       0.671    1351.    6.86e-42
-    #> 10 e        trend       1996(3) 2000(4)   0.669    0.00886    75.5   7.44e-22
-    #> # … with 28 more rows
+| variable | term        | begin   | end     | estimate | std.error | statistic | p.value |
+|:---------|:------------|:--------|:--------|---------:|----------:|----------:|--------:|
+| e        | (Intercept) | 1980(1) | 1982(4) |   931.45 |      1.04 |    895.64 |    0.00 |
+| e        | trend       | 1980(1) | 1982(4) |    -0.04 |      0.14 |     -0.27 |    0.79 |
+| e        | (Intercept) | 1983(1) | 1989(3) |   920.31 |      0.26 |   3517.85 |    0.00 |
+| e        | trend       | 1983(1) | 1989(3) |     0.71 |      0.01 |     73.43 |    0.00 |
+| e        | (Intercept) | 1989(4) | 1992(3) |   960.02 |      1.55 |    617.61 |    0.00 |
+| e        | trend       | 1989(4) | 1992(3) |    -0.29 |      0.03 |     -8.62 |    0.00 |
+| e        | (Intercept) | 1992(4) | 1996(2) |   923.07 |      1.43 |    643.48 |    0.00 |
+| e        | trend       | 1992(4) | 1996(2) |     0.43 |      0.02 |     17.60 |    0.00 |
+| e        | (Intercept) | 1996(3) | 2000(4) |   905.85 |      0.67 |   1350.89 |    0.00 |
+| e        | trend       | 1996(3) | 2000(4) |     0.67 |      0.01 |     75.48 |    0.00 |
+| prod     | (Intercept) | 1980(1) | 1982(4) |   405.69 |      0.37 |   1102.60 |    0.00 |
+| prod     | trend       | 1980(1) | 1982(4) |    -0.38 |      0.05 |     -7.55 |    0.00 |
+| prod     | (Intercept) | 1983(1) | 1985(4) |   397.82 |      0.64 |    617.43 |    0.00 |
+| prod     | trend       | 1983(1) | 1985(4) |     0.39 |      0.03 |     11.36 |    0.00 |
+| prod     | (Intercept) | 1986(1) | 1988(4) |   393.25 |      1.36 |    288.12 |    0.00 |
+| prod     | trend       | 1986(1) | 1988(4) |     0.43 |      0.04 |      9.77 |    0.00 |
+| prod     | (Intercept) | 1989(1) | 1991(4) |   430.79 |      2.20 |    196.19 |    0.00 |
+| prod     | trend       | 1989(1) | 1991(4) |    -0.58 |      0.05 |    -11.27 |    0.00 |
+| prod     | (Intercept) | 1992(1) | 1997(4) |   384.22 |      1.35 |    285.24 |    0.00 |
+| prod     | trend       | 1992(1) | 1997(4) |     0.42 |      0.02 |     18.83 |    0.00 |
+| prod     | (Intercept) | 1998(1) | 2000(4) |   374.04 |      4.59 |     81.49 |    0.00 |
+| prod     | trend       | 1998(1) | 2000(4) |     0.52 |      0.06 |      8.94 |    0.00 |
+| rw       | (Intercept) | 1980(1) | 1982(4) |   382.88 |      0.47 |    813.08 |    0.00 |
+| rw       | trend       | 1980(1) | 1982(4) |     2.77 |      0.06 |     43.30 |    0.00 |
+| rw       | (Intercept) | 1983(1) | 1988(2) |   404.01 |      0.51 |    793.20 |    0.00 |
+| rw       | trend       | 1983(1) | 1988(2) |     0.88 |      0.02 |     42.27 |    0.00 |
+| rw       | (Intercept) | 1988(3) | 1992(1) |   384.35 |      1.74 |    220.28 |    0.00 |
+| rw       | trend       | 1988(3) | 1992(1) |     1.44 |      0.04 |     34.73 |    0.00 |
+| rw       | (Intercept) | 1992(2) | 2000(4) |   434.04 |      0.74 |    588.72 |    0.00 |
+| rw       | trend       | 1992(2) | 2000(4) |     0.43 |      0.01 |     39.43 |    0.00 |
+| U        | (Intercept) | 1980(1) | 1982(4) |     5.75 |      0.67 |      8.55 |    0.00 |
+| U        | trend       | 1980(1) | 1982(4) |     0.45 |      0.09 |      4.96 |    0.00 |
+| U        | (Intercept) | 1983(1) | 1989(2) |    14.96 |      0.17 |     89.18 |    0.00 |
+| U        | trend       | 1983(1) | 1989(2) |    -0.20 |      0.01 |    -32.05 |    0.00 |
+| U        | (Intercept) | 1989(3) | 1992(4) |    -7.01 |      1.16 |     -6.03 |    0.00 |
+| U        | trend       | 1989(3) | 1992(4) |     0.36 |      0.03 |     14.30 |    0.00 |
+| U        | (Intercept) | 1993(1) | 2000(4) |    19.20 |      0.48 |     40.31 |    0.00 |
+| U        | trend       | 1993(1) | 2000(4) |    -0.15 |      0.01 |    -21.46 |    0.00 |
 
-    model <- VAR(Canada)
-    tsp.var.fit(model)
+``` r
 
-![](https://i.imgur.com/JGB5o4i.png)
+model <- VAR(Canada)
+tsp.var.fit(model)
+```
+
+![](https://i.imgur.com/TyhImvD.png)
 
 ``` r
 tsp.var.resid(model)
 ```
 
-![](https://i.imgur.com/0pMfFK2.png)
+![](https://i.imgur.com/JpvNDJ9.png)
 
 ``` r
 tsp.var.forecast(model)
 ```
 
-![](https://i.imgur.com/tH0KCsL.png)
+![](https://i.imgur.com/xkuMFXc.png)
 
 ``` r
 tsp.var.irf(irf(model))
 ```
 
-![](https://i.imgur.com/M3Xds7y.png)
+![](https://i.imgur.com/gKnZCy0.png)
 
 ``` r
 tsp.var.fevd(fevd(model))
 ```
 
-![](https://i.imgur.com/oDBRbN1.png)
+![](https://i.imgur.com/UXhVLMD.png)
 
 ``` r
 
@@ -556,4 +585,3 @@ tsp.toda_yamamoto(Canada)
 ```
 
 <sup>Created on 2022-10-30 with [reprex v2.0.2.9000](https://reprex.tidyverse.org)</sup>
-
