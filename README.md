@@ -45,7 +45,10 @@ library(knitr)
 data("JohnsonJohnson")
 x <- JohnsonJohnson
 plot(x)
+```
+![](https://i.imgur.com/yBLofXt.png)
 
+```
 # Ajuste de tendencia lineal
 
 model <- tslm(x~1+trend)
@@ -68,7 +71,7 @@ plot(x)
 lines(fitted(model))
 ```
 
-![](https://i.imgur.com/lrEuIN3.png)
+![](https://i.imgur.com/r6SrUq0.png)
 
 ``` r
 
@@ -81,7 +84,7 @@ lines(fitted(bk))
 lines(confint(bk))
 ```
 
-![](https://i.imgur.com/LtaN8sC.png)
+![](https://i.imgur.com/HxEqH4F.png)
 
 ``` r
 coeftest(bk) %>% 
@@ -124,7 +127,7 @@ lines(fitted(bk_trend))
 lines(confint(bk_trend))
 ```
 
-![](https://i.imgur.com/CFvgCDU.png)
+![](https://i.imgur.com/c8Jhwl6.png)
 
 ``` r
 coeftest(bk_trend)%>% 
@@ -147,13 +150,13 @@ coeftest(bk_trend)%>%
 tsp.figures(x,table = F)
 ```
 
-![](https://i.imgur.com/nOFnHT2.png)
+![](https://i.imgur.com/bEqzeHf.png)
 
 ``` r
 tsp.range_mean(x)
 ```
 
-![](https://i.imgur.com/UqjiGgW.png)
+![](https://i.imgur.com/VB4wIwJ.png)
 
     #>    year    mean range
     #> 1  1960  0.6575  0.41
@@ -180,7 +183,7 @@ tsp.range_mean(x)
     tsp.season.line(x)
     #> N : 84   start : 1960   end:  1980   frequency : 4
 
-![](https://i.imgur.com/81rkpcf.png)
+![](https://i.imgur.com/fbTdUYi.png)
 
 ``` r
 tsp.season.box(x)
@@ -191,13 +194,13 @@ tsp.season.box(x)
 #> 4      4   3.60 4.188095 3.444917 11.86746
 ```
 
-![](https://i.imgur.com/2YGJfYH.png)
+![](https://i.imgur.com/dmvgVkc.png)
 
 ``` r
 tsp.trend.decompose(x)
 ```
 
-![](https://i.imgur.com/vJ8fRdh.png)
+![](https://i.imgur.com/dfXYAWX.png)
 
 ``` r
 tsp.trend.filter(x)
@@ -304,7 +307,7 @@ tsp.trend.filter(x)
 #> 1980 Q4 11.61 14.6184 -3.008e+00
 ```
 
-![](https://i.imgur.com/vjTJgC9.png)
+![](https://i.imgur.com/kvp0ks9.png)
 
 ``` r
 tsp.year(x)
@@ -332,7 +335,7 @@ tsp.year(x)
 #> 21 1980 15.345 14.6250 2.1228047 4.50630000
 ```
 
-![](https://i.imgur.com/xIlrWKQ.png)
+![](https://i.imgur.com/MXXAp0f.png)
 
 ``` r
 
@@ -343,7 +346,7 @@ tsp.series_factor(AirPassengers,
                   color = F)
 ```
 
-![](https://i.imgur.com/Tj8hiKc.png)
+![](https://i.imgur.com/D5SvAhV.png)
 
 ``` r
 
@@ -351,7 +354,7 @@ library(mFilter)
 tsp.mfilter(hpfilter(x))
 ```
 
-![](https://i.imgur.com/0fgoo9z.png)
+![](https://i.imgur.com/TTpl917.png)
 
 ``` r
 library(forecast)
@@ -383,7 +386,7 @@ tsp.correlogram(auto.arima(AirPassengers))
 #>   24  0.11113  0.08464 37.78405 21 0.01366
 ```
 
-![](https://i.imgur.com/EH1zqq7.png)
+![](https://i.imgur.com/bzu2wlV.png)
 
 ``` r
 
@@ -393,7 +396,7 @@ library(strucchange)
 tsp.break(breakpoints(x~1))
 ```
 
-![](https://i.imgur.com/rFNdoJP.png)
+![](https://i.imgur.com/55nVcvE.png)
 
 ``` r
 ## Using vars package
@@ -402,186 +405,84 @@ library(vars)
 #> Loading required package: urca
 data("Canada")
 tsp.break.coef(Canada) %>% 
-  kable(digits =2)
-```
-
-![](https://i.imgur.com/0xpeMWz.png)
-
-| variable | term        | begin   | end     | estimate | std.error | statistic | p.value |
-|:---------|:------------|:--------|:--------|---------:|----------:|----------:|--------:|
-| e        | (Intercept) | 1980(1) | 1982(4) |   931.45 |      1.04 |    895.64 |    0.00 |
-| e        | trend       | 1980(1) | 1982(4) |    -0.04 |      0.14 |     -0.27 |    0.79 |
-| e        | (Intercept) | 1983(1) | 1989(3) |   920.31 |      0.26 |   3517.85 |    0.00 |
-| e        | trend       | 1983(1) | 1989(3) |     0.71 |      0.01 |     73.43 |    0.00 |
-| e        | (Intercept) | 1989(4) | 1992(3) |   960.02 |      1.55 |    617.61 |    0.00 |
-| e        | trend       | 1989(4) | 1992(3) |    -0.29 |      0.03 |     -8.62 |    0.00 |
-| e        | (Intercept) | 1992(4) | 1996(2) |   923.07 |      1.43 |    643.48 |    0.00 |
-| e        | trend       | 1992(4) | 1996(2) |     0.43 |      0.02 |     17.60 |    0.00 |
-| e        | (Intercept) | 1996(3) | 2000(4) |   905.85 |      0.67 |   1350.89 |    0.00 |
-| e        | trend       | 1996(3) | 2000(4) |     0.67 |      0.01 |     75.48 |    0.00 |
-| prod     | (Intercept) | 1980(1) | 1982(4) |   405.69 |      0.37 |   1102.60 |    0.00 |
-| prod     | trend       | 1980(1) | 1982(4) |    -0.38 |      0.05 |     -7.55 |    0.00 |
-| prod     | (Intercept) | 1983(1) | 1985(4) |   397.82 |      0.64 |    617.43 |    0.00 |
-| prod     | trend       | 1983(1) | 1985(4) |     0.39 |      0.03 |     11.36 |    0.00 |
-| prod     | (Intercept) | 1986(1) | 1988(4) |   393.25 |      1.36 |    288.12 |    0.00 |
-| prod     | trend       | 1986(1) | 1988(4) |     0.43 |      0.04 |      9.77 |    0.00 |
-| prod     | (Intercept) | 1989(1) | 1991(4) |   430.79 |      2.20 |    196.19 |    0.00 |
-| prod     | trend       | 1989(1) | 1991(4) |    -0.58 |      0.05 |    -11.27 |    0.00 |
-| prod     | (Intercept) | 1992(1) | 1997(4) |   384.22 |      1.35 |    285.24 |    0.00 |
-| prod     | trend       | 1992(1) | 1997(4) |     0.42 |      0.02 |     18.83 |    0.00 |
-| prod     | (Intercept) | 1998(1) | 2000(4) |   374.04 |      4.59 |     81.49 |    0.00 |
-| prod     | trend       | 1998(1) | 2000(4) |     0.52 |      0.06 |      8.94 |    0.00 |
-| rw       | (Intercept) | 1980(1) | 1982(4) |   382.88 |      0.47 |    813.08 |    0.00 |
-| rw       | trend       | 1980(1) | 1982(4) |     2.77 |      0.06 |     43.30 |    0.00 |
-| rw       | (Intercept) | 1983(1) | 1988(2) |   404.01 |      0.51 |    793.20 |    0.00 |
-| rw       | trend       | 1983(1) | 1988(2) |     0.88 |      0.02 |     42.27 |    0.00 |
-| rw       | (Intercept) | 1988(3) | 1992(1) |   384.35 |      1.74 |    220.28 |    0.00 |
-| rw       | trend       | 1988(3) | 1992(1) |     1.44 |      0.04 |     34.73 |    0.00 |
-| rw       | (Intercept) | 1992(2) | 2000(4) |   434.04 |      0.74 |    588.72 |    0.00 |
-| rw       | trend       | 1992(2) | 2000(4) |     0.43 |      0.01 |     39.43 |    0.00 |
-| U        | (Intercept) | 1980(1) | 1982(4) |     5.75 |      0.67 |      8.55 |    0.00 |
-| U        | trend       | 1980(1) | 1982(4) |     0.45 |      0.09 |      4.96 |    0.00 |
-| U        | (Intercept) | 1983(1) | 1989(2) |    14.96 |      0.17 |     89.18 |    0.00 |
-| U        | trend       | 1983(1) | 1989(2) |    -0.20 |      0.01 |    -32.05 |    0.00 |
-| U        | (Intercept) | 1989(3) | 1992(4) |    -7.01 |      1.16 |     -6.03 |    0.00 |
-| U        | trend       | 1989(3) | 1992(4) |     0.36 |      0.03 |     14.30 |    0.00 |
-| U        | (Intercept) | 1993(1) | 2000(4) |    19.20 |      0.48 |     40.31 |    0.00 |
-| U        | trend       | 1993(1) | 2000(4) |    -0.15 |      0.01 |    -21.46 |    0.00 |
-
-``` r
+  kable(digits = 2)
+#> Error in full_join(., observed): no se pudo encontrar la función "full_join"
 
 model <- VAR(Canada)
 tsp.var.fit(model)
 ```
 
-![](https://i.imgur.com/TyhImvD.png)
+![](https://i.imgur.com/rW83HDW.png)
 
 ``` r
 tsp.var.resid(model)
 ```
 
-![](https://i.imgur.com/JpvNDJ9.png)
+![](https://i.imgur.com/P5gMlf5.png)
 
 ``` r
 tsp.var.forecast(model)
 ```
 
-![](https://i.imgur.com/xkuMFXc.png)
+![](https://i.imgur.com/caxg4xQ.png)
 
 ``` r
 tsp.var.irf(irf(model))
 ```
 
-![](https://i.imgur.com/gKnZCy0.png)
+![](https://i.imgur.com/cJnnn6I.png)
 
 ``` r
 tsp.var.fevd(fevd(model))
 ```
 
-![](https://i.imgur.com/UXhVLMD.png)
+![](https://i.imgur.com/RFT8lM1.png)
 
 ``` r
 
 ## Causality Test
 # For stationary variables
-tsp.granger(VAR(Canada))
-#> # A tibble: 12 × 7
-#>    caused sign  cause  Chisq    df     p_value H0       
-#>    <chr>  <chr> <chr>  <dbl> <dbl>       <dbl> <chr>    
-#>  1 e      <-    prod  27.9       1 0.000000128 prod.l1=0
-#>  2 e      <-    rw     7.79      1 0.00525     rw.l1=0  
-#>  3 e      <-    U     10.0       1 0.00156     U.l1=0   
-#>  4 prod   <-    e      0.543     1 0.461       e.l1=0   
-#>  5 prod   <-    rw     0.414     1 0.520       rw.l1=0  
-#>  6 prod   <-    U      1.82      1 0.177       U.l1=0   
-#>  7 rw     <-    e      0.224     1 0.636       e.l1=0   
-#>  8 rw     <-    prod   9.03      1 0.00265     prod.l1=0
-#>  9 rw     <-    U      0.514     1 0.474       U.l1=0   
-#> 10 U      <-    e      9.91      1 0.00165     e.l1=0   
-#> 11 U      <-    prod  15.6       1 0.0000800   prod.l1=0
-#> 12 U      <-    rw    12.7       1 0.000372    rw.l1=0
-# For non stationary variables
-tsp.toda_yamamoto(Canada)
-#> [1] "Automatic selection for 'd' using adf test:d_max= 1"
-#> [1] "Automatic selection for 'p' using AIC(n) criteria:p= 3"
-#> $model
-#> 
-#> VAR Estimation Results:
-#> ======================= 
-#> 
-#> Estimated coefficients for equation e: 
-#> ====================================== 
-#> Call:
-#> e = e.l1 + prod.l1 + rw.l1 + U.l1 + e.l2 + prod.l2 + rw.l2 + U.l2 + e.l3 + prod.l3 + rw.l3 + U.l3 + e.l4 + prod.l4 + rw.l4 + U.l4 + const 
-#> 
-#>          e.l1       prod.l1         rw.l1          U.l1          e.l2 
-#>    1.74218942    0.16397789   -0.09304765    0.15368277   -1.12057885 
-#>       prod.l2         rw.l2          U.l2          e.l3       prod.l3 
-#>   -0.07717556   -0.01144348   -0.13950250    0.44077173   -0.02763613 
-#>         rw.l3          U.l3          e.l4       prod.l4         rw.l4 
-#>   -0.01814206    0.31611724    0.06329240    0.01019007    0.06422136 
-#>          U.l4         const 
-#>   -0.01654811 -123.62311872 
-#> 
-#> 
-#> Estimated coefficients for equation prod: 
-#> ========================================= 
-#> Call:
-#> prod = e.l1 + prod.l1 + rw.l1 + U.l1 + e.l2 + prod.l2 + rw.l2 + U.l2 + e.l3 + prod.l3 + rw.l3 + U.l3 + e.l4 + prod.l4 + rw.l4 + U.l4 + const 
-#> 
-#>          e.l1       prod.l1         rw.l1          U.l1          e.l2 
-#>   -0.20322620    1.13754391    0.04008912   -0.67599169   -0.05970155 
-#>       prod.l2         rw.l2          U.l2          e.l3       prod.l3 
-#>   -0.15157852   -0.23225253    0.75466980    0.41126623    0.07043146 
-#>         rw.l3          U.l3          e.l4       prod.l4         rw.l4 
-#>    0.06337671    0.56032005    0.05651630   -0.06705154    0.05578441 
-#>          U.l4         const 
-#>   -0.18902718 -160.55687500 
-#> 
-#> 
-#> Estimated coefficients for equation rw: 
-#> ======================================= 
-#> Call:
-#> rw = e.l1 + prod.l1 + rw.l1 + U.l1 + e.l2 + prod.l2 + rw.l2 + U.l2 + e.l3 + prod.l3 + rw.l3 + U.l3 + e.l4 + prod.l4 + rw.l4 + U.l4 + const 
-#> 
-#>        e.l1     prod.l1       rw.l1        U.l1        e.l2     prod.l2 
-#> -0.55770823 -0.09936109  0.86953646  0.05678868  0.74829149 -0.16621913 
-#>       rw.l2        U.l2        e.l3     prod.l3       rw.l3        U.l3 
-#> -0.10591991 -0.46784224 -0.44130876  0.26737005 -0.02104599 -0.10471132 
-#>        e.l4     prod.l4       rw.l4        U.l4       const 
-#>  0.29570621 -0.08708276  0.21411008  0.25881762 15.63551055 
-#> 
-#> 
-#> Estimated coefficients for equation U: 
-#> ====================================== 
-#> Call:
-#> U = e.l1 + prod.l1 + rw.l1 + U.l1 + e.l2 + prod.l2 + rw.l2 + U.l2 + e.l3 + prod.l3 + rw.l3 + U.l3 + e.l4 + prod.l4 + rw.l4 + U.l4 + const 
-#> 
-#>         e.l1      prod.l1        rw.l1         U.l1         e.l2      prod.l2 
-#> -0.700650589 -0.115380960  0.011568059  0.548572786  0.577664271  0.102755196 
-#>        rw.l2         U.l2         e.l3      prod.l3        rw.l3         U.l3 
-#>  0.057414586 -0.008460697 -0.089153729 -0.012070213 -0.024326133  0.062084973 
-#>         e.l4      prod.l4        rw.l4         U.l4        const 
-#>  0.122250511  0.018292775 -0.016474575  0.127542873 77.862996925 
-#> 
-#> 
-#> 
-#> $result
-#> # A tibble: 12 × 7
-#>    caused sign  cause chisq    df          p H0                           
-#>    <chr>  <chr> <chr> <dbl> <dbl>      <dbl> <chr>                        
-#>  1 e      <-    prod  10.7      3 0.0137     prod.l1=0,prod.l2=0,prod.l3=0
-#>  2 e      <-    rw     7.55     3 0.0562     rw.l1=0,rw.l2=0,rw.l3=0      
-#>  3 e      <-    U      2.41     3 0.492      U.l1=0,U.l2=0,U.l3=0         
-#>  4 prod   <-    e      1.63     3 0.653      e.l1=0,e.l2=0,e.l3=0         
-#>  5 prod   <-    rw     4.41     3 0.220      rw.l1=0,rw.l2=0,rw.l3=0      
-#>  6 prod   <-    U      7.50     3 0.0576     U.l1=0,U.l2=0,U.l3=0         
-#>  7 rw     <-    e      1.98     3 0.577      e.l1=0,e.l2=0,e.l3=0         
-#>  8 rw     <-    prod   4.29     3 0.232      prod.l1=0,prod.l2=0,prod.l3=0
-#>  9 rw     <-    U      1.86     3 0.602      U.l1=0,U.l2=0,U.l3=0         
-#> 10 U      <-    e     26.0      3 0.00000944 e.l1=0,e.l2=0,e.l3=0         
-#> 11 U      <-    prod   5.20     3 0.158      prod.l1=0,prod.l2=0,prod.l3=0
-#> 12 U      <-    rw     2.68     3 0.444      rw.l1=0,rw.l2=0,rw.l3=0
+tsp.granger(VAR(Canada)) %>% 
+  kable(digits = 2)
 ```
 
-<sup>Created on 2022-10-30 with [reprex v2.0.2.9000](https://reprex.tidyverse.org)</sup>
+| caused | sign | cause | Chisq |  df | p_value | H0        |
+|:-------|:-----|:------|------:|----:|--------:|:----------|
+| e      | \<-  | prod  | 27.90 |   1 |    0.00 | prod.l1=0 |
+| e      | \<-  | rw    |  7.79 |   1 |    0.01 | rw.l1=0   |
+| e      | \<-  | U     | 10.01 |   1 |    0.00 | U.l1=0    |
+| prod   | \<-  | e     |  0.54 |   1 |    0.46 | e.l1=0    |
+| prod   | \<-  | rw    |  0.41 |   1 |    0.52 | rw.l1=0   |
+| prod   | \<-  | U     |  1.82 |   1 |    0.18 | U.l1=0    |
+| rw     | \<-  | e     |  0.22 |   1 |    0.64 | e.l1=0    |
+| rw     | \<-  | prod  |  9.03 |   1 |    0.00 | prod.l1=0 |
+| rw     | \<-  | U     |  0.51 |   1 |    0.47 | U.l1=0    |
+| U      | \<-  | e     |  9.91 |   1 |    0.00 | e.l1=0    |
+| U      | \<-  | prod  | 15.56 |   1 |    0.00 | prod.l1=0 |
+| U      | \<-  | rw    | 12.67 |   1 |    0.00 | rw.l1=0   |
+
+``` r
+# For non stationary variables
+test <- tsp.toda_yamamoto(Canada)
+#> [1] "Automatic selection for 'd' using adf test:d_max= 1"
+#> [1] "Automatic selection for 'p' using AIC(n) criteria:p= 3"
+test$result %>% 
+  kable(digits = 2)
+```
+
+| caused | sign | cause | chisq |  df |    p | H0                            |
+|:-------|:-----|:------|------:|----:|-----:|:------------------------------|
+| e      | \<-  | prod  | 10.66 |   3 | 0.01 | prod.l1=0,prod.l2=0,prod.l3=0 |
+| e      | \<-  | rw    |  7.55 |   3 | 0.06 | rw.l1=0,rw.l2=0,rw.l3=0       |
+| e      | \<-  | U     |  2.41 |   3 | 0.49 | U.l1=0,U.l2=0,U.l3=0          |
+| prod   | \<-  | e     |  1.63 |   3 | 0.65 | e.l1=0,e.l2=0,e.l3=0          |
+| prod   | \<-  | rw    |  4.41 |   3 | 0.22 | rw.l1=0,rw.l2=0,rw.l3=0       |
+| prod   | \<-  | U     |  7.50 |   3 | 0.06 | U.l1=0,U.l2=0,U.l3=0          |
+| rw     | \<-  | e     |  1.98 |   3 | 0.58 | e.l1=0,e.l2=0,e.l3=0          |
+| rw     | \<-  | prod  |  4.29 |   3 | 0.23 | prod.l1=0,prod.l2=0,prod.l3=0 |
+| rw     | \<-  | U     |  1.86 |   3 | 0.60 | U.l1=0,U.l2=0,U.l3=0          |
+| U      | \<-  | e     | 26.02 |   3 | 0.00 | e.l1=0,e.l2=0,e.l3=0          |
+| U      | \<-  | prod  |  5.20 |   3 | 0.16 | prod.l1=0,prod.l2=0,prod.l3=0 |
+| U      | \<-  | rw    |  2.68 |   3 | 0.44 | rw.l1=0,rw.l2=0,rw.l3=0       |
+
+<sup>Created on 2022-10-31 with [reprex v2.0.2.9000](https://reprex.tidyverse.org)</sup>

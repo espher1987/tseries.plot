@@ -34,16 +34,16 @@ tsp.break.coef <- function(data,
     data <- log(data);message("Log transformation used")
   }
 
-  if(!is(data,c("zoo","ts"))){
+  if(!methods::is(data,c("zoo","ts"))){
     warning("Only ts objects supported")
   }
 
-  if(is(data,"zoo")){
+  if(methods::is(data,"zoo")){
     data <- as.ts(data)
     warning("Object of class zoo detected, converted to ts, date index converted")
   }
 
-  if(is(data,"ts") & is.null(ncol(data))){
+  if(methods::is(data,"ts") & is.null(ncol(data))){
     ncol = 1
     if (model == "trend") {
       trend <- seq_along(data)
@@ -83,7 +83,7 @@ tsp.break.coef <- function(data,
       tidyr::pivot_longer(-time) %>%
       dplyr::rename(segment = value)
 
-    fitted <- purrr::map_dfc(bk,fitted.values) %>%
+    fitted <- purrr::map_dfc(bk,stats::fitted.values) %>%
       dplyr::mutate(time = zoo::as.Date.ts(fitted(bk[[1]]))) %>%
       tidyr::pivot_longer(-c(time)) %>%
       dplyr::rename(value_fitted = value)
@@ -98,7 +98,7 @@ tsp.break.coef <- function(data,
         group_by(name,segment) %>%
         mutate(i = 1:length(segment),
                b = ifelse(i == max(i),as.character(time),NA)) %>%
-        full_join(observed))
+        dplyr::full_join(observed))
 
     pl <- ggplot2::ggplot(plot_data)+
       ggplot2::geom_line(ggplot2::aes(time,

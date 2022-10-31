@@ -7,7 +7,6 @@
 #' @return
 #' @export
 #'
-#' @examples
 tsp.break <- function(model, level = NULL,...){
   if(!is(model,c("breakpointsfull","breakpoints"))){
     stop("only breakpointsfull or breakpoints class object created with strucchange::breakpoints() is accepted")
@@ -38,24 +37,24 @@ tsp.break <- function(model, level = NULL,...){
                    mean = as.Date(m),
                    high = as.Date(h))
 
-  plot <- ggplot() +
-    geom_line(data = data,
+  plot <- ggplot2::ggplot() +
+    ggplot2::geom_line(data = data,
               aes(time,value,lty = "serie")) +
-    geom_line(data = data,
+    ggplot2::geom_line(data = data,
               aes(time,fitted,lty = "fitted")) +
-    geom_segment(data = bk,mapping = aes(x = low,
+    ggplot2::geom_segment(data = bk,mapping = ggplot2::aes(x = low,
                                          y = min(data$value),
                                          xend = high,
                                          yend = min(data$value)),
                  size =2, color = "red") +
-    geom_segment(data = bk,mapping = aes(x = low,
+    ggplot2::geom_segment(data = bk,mapping = ggplot2::aes(x = low,
                                          y = max(data$value),
                                          xend = high,
                                          yend = max(data$value)),
                  size =2, color = "red") +
-    geom_vline(data = bk,mapping = aes(xintercept = mean),
+    ggplot2::geom_vline(data = bk,mapping = ggplot2::aes(xintercept = mean),
                lty = 2, color = "red") +
-    scale_linetype_manual(values = c(fitted = 2,
+    ggplot2::scale_linetype_manual(values = c(fitted = 2,
                                      serie = 1))
 return(plot)
 }

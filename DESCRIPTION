@@ -23,5 +23,7 @@ Imports:
   stringr,
   tibble,
   tidyr,
-  vars
+  vars,
+  xts,
+  zoo,
 RoxygenNote: 7.1.1
