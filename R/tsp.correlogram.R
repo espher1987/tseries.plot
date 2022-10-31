@@ -56,7 +56,7 @@ tsp.correlogram <- function(x,
   # logical test for creation of objects
 
   if(is.Arima(x)){
-    fitdf <- length(x$coef)
+    fitdf <- sum(arimaorder(modelo)[c("p","q","P","Q")], na.rm = TRUE)
     m     <- frequency(fitted(x))
     serie <- x$residuals}
 
