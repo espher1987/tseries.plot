@@ -23,8 +23,6 @@ tsp.break.coef(
 
 \item{log}{log transformation used in data for log percent change}
 
-\item{plot}{logical, plot breaks using graphics}
-
 \item{mfcol}{vector of length  2 to define plot matrix}
 
 \item{...}{arguments passed to breakpoints}

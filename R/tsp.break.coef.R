@@ -79,33 +79,33 @@ tsp.break.coef <- function(data,
 
   if(plot == TRUE){
     seg <- purrr::map_dfc(bk,breakfactor) %>%
-      mutate(time = as.Date.ts(fitted(bk[[1]]))) %>%
-      pivot_longer(-time) %>%
-      rename(segment = value)
+      dplyr::mutate(time = as.Date.ts(fitted(bk[[1]]))) %>%
+      tidyr::pivot_longer(-time) %>%
+      dplyr::rename(segment = value)
 
     fitted <- purrr::map_dfc(bk,fitted.values) %>%
-      mutate(time = as.Date.ts(fitted(bk[[1]])),
+      dplyr::mutate(time = as.Date.ts(fitted(bk[[1]])),
              type = "fitted") %>%
-      pivot_longer(-c(time,type))
+      tidyr::pivot_longer(-c(time,type))
 
-    observed <- map_dfc(bk,function(data){data$y}) %>%
-      mutate(time = as.Date.ts(fitted(bk[[1]])),
+    observed <- purrr::map_dfc(bk,function(data){data$y}) %>%
+      dplyr::mutate(time = as.Date.ts(fitted(bk[[1]])),
              type = "observed") %>%
-      pivot_longer(-c(time,type))
+      tidyr::pivot_longer(-c(time,type))
     suppressMessages(
-    plot_data <- full_join(fitted,seg))
+    plot_data <- dplyr::full_join(fitted,seg))
 
-    plot <- ggplot()+
-      geom_line(data = observed,
-                aes(time,value,
+    plot <- ggplot2::ggplot()+
+      ggplot2::geom_line(data = observed,
+                         ggplot2::aes(time,value,
                     lty = "observed"))+
-      geom_line(data = plot_data,
-                aes(time,value,
+      ggplot2::geom_line(data = plot_data,
+                         ggplot2::aes(time,value,
                     group = segment,
-                    lty = "fitted"))+
-      scale_linetype_manual(values = c(fitted = 2,
+                    lty = "fitted")) +
+      ggplot2::scale_linetype_manual(values = c(fitted = 2,
                                        observed = 1))+
-      facet_grid(vars(fitted$name),scales = "free_y")
+      ggplot2::facet_grid(vars(fitted$name),scales = "free_y")
     print(plot)
   }
   return(result)
