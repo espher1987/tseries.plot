@@ -16,59 +16,46 @@ tsp.break <- function(model, level = NULL,...){
     stop("No breakpoints detected")
   }
   if(is.null(level)){
-    level <- seq(0.99,0.90,length = 10)
+    level <- 0.95
   }
 
-  c <- length(level)
-  bd <- breakdates(model)
-  nb <- length(breakdates(model))
+  data <- data.frame(time = zoo::as.Date.ts(fitted(model)),
+                     value = model$y,
+                     fitted = fitted(model))
 
+  ci <- confint(model,level = level,...)
 
-conf <- vector(mode = "list",length = 0L)
-for(b in 1:nb){
-  temp_data <- data.frame(b = rep(b,c),
-                          ci = rep(NA,c),
-                          ld =rep(NA,c),
-                          hd =rep(NA,c))
-    for (i in 1:c) {
-      temp_data[i,2] <- level[i]
-      ci <- confint(model,level = level[i],...)
-      l <- ci$confint[b,1]
-      h <- ci$confint[b,3]
-      temp_data[i,3] <- time(fitted(model))[l]
-      temp_data[i,4] <- time(fitted(model))[h]
-    }
-  conf[[length(conf)+1]] <- temp_data
-}
+  l <- character()
+  m <- character()
+  h <- character()
 
-brk <- tibble::tibble(conf) %>%
-  dplyr::mutate(date = bd) %>%
-  dplyr::rowwise(date) %>%
-  tidyr::unnest(conf)
+  for( i in 1:nrow(ci$confint)){
+    l[i] <- as.character(data$time[ci$confint[,1][i]])
+    m[i] <- as.character(data$time[ci$confint[,2][i]])
+    h[i] <- as.character(data$time[ci$confint[,3][i]])}
 
-df <- data.frame(time = time(fitted(model)),
-                 fitted = fitted(model),
-                 observed = model$y)
+  bk <- data.frame(low = as.Date(l),
+                   mean = as.Date(m),
+                   high = as.Date(h))
 
-df <- tidyr::pivot_longer(df,-time)
-
-plot <- ggplot2::ggplot()+
-  ggplot2::geom_segment(ggplot2::aes(x = brk$ld,xend = brk$hd,
-                                     y = c(min(df$value)),
-                                     yend=c(min(df$value)),
-                                     color = brk$ci),size = 4)+
-  ggplot2::geom_segment(ggplot2::aes(x = brk$ld,
-                                     xend = brk$hd,
-                                     y = c(max(df$value)),
-                                     yend=c(max(df$value)),
-                                     color = brk$ci),size = 3)+
-  ggplot2::geom_line(data = df,ggplot2::aes(x=time,
-                                            y=value,
-                                            linetype=name)) +
-  ggplot2::geom_vline(xintercept = strucchange::breakdates(model),
-             linetype = 3) +
-  ggplot2::labs(x= "time",y = "value",color = "level",linetype = "type") +
-  ggplot2::scale_linetype_manual(values = c("fitted"=2,
-                                   "observed"=1))
+  plot <- ggplot() +
+    geom_line(data = data,
+              aes(time,value,lty = "serie")) +
+    geom_line(data = data,
+              aes(time,fitted,lty = "fitted")) +
+    geom_segment(data = bk,mapping = aes(x = low,
+                                         y = min(data$value),
+                                         xend = high,
+                                         yend = min(data$value)),
+                 size =2, color = "red") +
+    geom_segment(data = bk,mapping = aes(x = low,
+                                         y = max(data$value),
+                                         xend = high,
+                                         yend = max(data$value)),
+                 size =2, color = "red") +
+    geom_vline(data = bk,mapping = aes(xintercept = mean),
+               lty = 2, color = "red") +
+    scale_linetype_manual(values = c(fitted = 2,
+                                     serie = 1))
 return(plot)
 }
